@@ -41,4 +41,15 @@ class TasksController extends Controller
         $task->delete();
         return response()->json("Task Deleted");
     }
+
+    public function updateStatus (Request $request, Tasks $task)
+    {
+        $validatedData = $request->validate([
+            'status' => 'required|in:pending,in progress,completed',
+        ]);
+    
+        $task->update(['status' => $validatedData['status']]);
+    
+        return response()->json(['message' => 'Status updated']);
+    }
 }
